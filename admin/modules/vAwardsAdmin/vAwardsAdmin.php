@@ -15,7 +15,7 @@ class vAwardsAdmin extends CodonModule
 {
 	public function HTMLHead()
 	{
-		$this->set('sidebar', 'vAwards/sidebar.tpl');
+		$this->set('sidebar', 'vAwards/sidebar.php');
 	}
 	
 	public function NavBar()
@@ -28,7 +28,7 @@ class vAwardsAdmin extends CodonModule
 	
 	public function index()
 	{
-		$this->render('vAwards/index.tpl');
+		$this->render('vAwards/index.php');
 	}
 	
 	public function allawards()
@@ -50,7 +50,7 @@ class vAwardsAdmin extends CodonModule
 		}
 		
 		$this->set('allawards', vAwardsData::GetAllAwards());
-		$this->render('vAwards/all_awards.tpl');
+		$this->render('vAwards/all_awards.php');
 	}
 	
 	public function allawardtypes()
@@ -71,7 +71,7 @@ class vAwardsAdmin extends CodonModule
 			}
 		}
 		$this->set('alltypes', vAwardsData::GetAllAwardTypes());
-		$this->render('vAwards/all_types.tpl');	
+		$this->render('vAwards/all_types.php');	
 	}
 	
 	public function allissuedawards()
@@ -91,7 +91,7 @@ class vAwardsAdmin extends CodonModule
 		}
 		
 		$this->set('allissuedaward', vAwardsData::GetAllIssuedAwards());
-		$this->render('vAwards/all_issued_awards.tpl');
+		$this->render('vAwards/all_issued_awards.php');
 	}
 	
 	public function addaward()
@@ -100,14 +100,14 @@ class vAwardsAdmin extends CodonModule
 		if(count($check) == 0)
 		{
 			$this->set('message', 'You must add at least one award type before you create a award!');
-			$this->render('core_error.tpl');
+			$this->render('core_error.php');
 			return;
 		}
 		
 		$this->set('title', 'Add Award');
 		$this->set('action', 'addaward');
 		$this->set('types', vAwardsData::GetAllAwardTypes());
-		$this->render('vAwards/award_form.tpl');
+		$this->render('vAwards/award_form.php');
 	}
 	
 	public function editaward()
@@ -116,14 +116,14 @@ class vAwardsAdmin extends CodonModule
 		$this->set('action', 'editaward');
 		$this->set('types', vAwardsData::GetAllAwardTypes());
 		$this->set('award', vAwardsData::GetAwardDetail($this->get->awd_id));
-		$this->render('vAwards/award_form.tpl');
+		$this->render('vAwards/award_form.php');
 	}
 	
 	public function addawardtype()
 	{
 		$this->set('title', 'Add Award Type');
 		$this->set('action', 'addawardtype');
-		$this->render('vAwards/type_form.tpl');	
+		$this->render('vAwards/type_form.php');	
 	}
 	
 	public function editawardtype()
@@ -131,7 +131,7 @@ class vAwardsAdmin extends CodonModule
 		$this->set('title', 'Edit Award Type');
 		$this->set('action', 'editawardtype');
 		$this->set('type', vAwardsData::GetTypeDetail($this->get->typ_id));
-		$this->render('vAwards/type_form.tpl');
+		$this->render('vAwards/type_form.php');
 	}
 	
 	public function issueaward()
@@ -140,7 +140,7 @@ class vAwardsAdmin extends CodonModule
 		if(count($check) == 0)
 		{
 			$this->set('message', 'You must add at least one award before issuing an award!');
-			$this->render('core_error.tpl');
+			$this->render('core_error.php');
 			return;
 		}
 		
@@ -148,7 +148,7 @@ class vAwardsAdmin extends CodonModule
 		$this->set('action', 'issueaward');
 		$this->set('pilots', PilotData::getAllPilots());
 		$this->set('awards', vAwardsData::GetAllAwards());
-		$this->render('vAwards/issue_award.tpl');
+		$this->render('vAwards/issue_award.php');
 	}
 	/*
 	
@@ -163,7 +163,7 @@ class vAwardsAdmin extends CodonModule
 		if($this->post->typ_name == '')
 		{
 			$this->set('message', 'You must enter the award type name!');
-			$this->render('core_error.tpl');
+			$this->render('core_error.php');
 			return;
 		}
 		
@@ -173,12 +173,12 @@ class vAwardsAdmin extends CodonModule
 		{
 			//To Debug, add the following in the message.... DB::$error
 			$this->set('message', 'There was an error adding the award type');
-            $this->render('core_error.tpl');
+            $this->render('core_error.php');
 			return;
 		}
 		
 		$this->set('message', 'Award Type Added - '.$this->post->typ_name);
-		$this->render('core_success.tpl');
+		$this->render('core_success.php');
 	}
 	
 	protected function edit_awardtype_post()
@@ -186,7 +186,7 @@ class vAwardsAdmin extends CodonModule
 		if($this->post->typ_name == '')
 		{
 			$this->set('message', 'Award Type Name can not be blank');
-			$this->render('core_error.tpl');
+			$this->render('core_error.php');
 			return;
 		}
 			
@@ -195,12 +195,12 @@ class vAwardsAdmin extends CodonModule
 		if(DB::errno() != 0)
 		{
 			$this->set('message', 'There was an error editing the award type');
-			$this->render('core_error.tpl');
+			$this->render('core_error.php');
 			return false;
 		}
 
 		$this->set('message', 'Award Type Edited - '.$this->post->typ_name);
-		$this->render('core_success.tpl');
+		$this->render('core_success.php');
 	}
 	
 	protected function add_award_post()
@@ -208,7 +208,7 @@ class vAwardsAdmin extends CodonModule
 		if($this->post->awd_name == '')
 		{
 			$this->set('message', 'You must enter the award name!');
-			$this->render('core_error.tpl');
+			$this->render('core_error.php');
 			return;
 		}
 		
@@ -218,12 +218,12 @@ class vAwardsAdmin extends CodonModule
 		{
 			//To Debug, add the following in the message.... DB::$error
 			$this->set('message', 'There was an error adding the award');
-            $this->render('core_error.tpl');
+            $this->render('core_error.php');
 			return;
 		}
 		
 		$this->set('message', 'Award Added - '.$this->post->awd_name);
-		$this->render('core_success.tpl');
+		$this->render('core_success.php');
 	}
 	
 	protected function edit_award_post()
@@ -231,7 +231,7 @@ class vAwardsAdmin extends CodonModule
 		if($this->post->awd_name == '')
 		{
 			$this->set('message', 'Award Name can not be blank');
-			$this->render('core_error.tpl');
+			$this->render('core_error.php');
 			return;
 		}
 			
@@ -240,12 +240,12 @@ class vAwardsAdmin extends CodonModule
 		if(DB::errno() != 0)
 		{
 			$this->set('message', 'There was an error editing the award');
-			$this->render('core_error.tpl');
+			$this->render('core_error.php');
 			return false;
 		}
 
 		$this->set('message', 'Award Edited - '.$this->post->awd_name);
-		$this->render('core_success.tpl');
+		$this->render('core_success.php');
 	}
 	
 	protected function issue_award_post()
@@ -254,7 +254,7 @@ class vAwardsAdmin extends CodonModule
 		if($check)
 		{
 			$this->set('message', 'The pilot already has that award!');
-			$this->render('core_error.tpl');
+			$this->render('core_error.php');
 			return;	
 		}
 		
@@ -263,11 +263,11 @@ class vAwardsAdmin extends CodonModule
 		if(DB::errno() != 0)
 		{
 			$this->set('message', 'There was an error issuing the award!');
-			$this->render('core_error.tpl');
+			$this->render('core_error.php');
 			return false;
 		}
 		
 		$this->set('message', 'Award Issued!');
-		$this->render('core_success.tpl');
+		$this->render('core_success.php');
 	}
 }

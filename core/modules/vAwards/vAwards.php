@@ -17,6 +17,6 @@ class vAwards extends CodonModule
 	{
 		$this->set('pilotid', $pilotid);
 		$this->set('allawardtpes', vAwardsData::GetAllAwardTypes());
-		$this->render('vAwards/profile_issued_awards.tpl');
+		$this->render('vAwards/profile_issued_awards.php');
 	}
 }
